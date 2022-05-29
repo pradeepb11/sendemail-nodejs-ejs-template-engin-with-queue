@@ -70,26 +70,20 @@ exports.getAllUsers = async (req, res) =>{
 exports.sendEmailToUsers = async (req, res) =>{
     try {
         const users = await Users.findAll()
-        const emailExists = await Users.findOne({
-            where: {
-                email: req.body.email
-            }
-        })
-      
-        console.log(emailExists)
-            // console.log(users)
-        // users.forEach((user, index) => {
-          
-        //     emailQueue.add({
-        //         user
-        //     }).then(() =>{
-        //         if(index+ 1 === users.length ){
-        //             res.status(200).send({
-        //                 message:'All Users are added to queue.'
-        //             })
-        //         }
-        //     })
-        // });
+       
+          // console.log(users)
+        users.forEach((user, index) => {
+            
+            emailQueue.add({
+                user
+            }).then(() =>{
+                if(index+ 1 === users.length ){
+                    res.status(200).send({
+                        message:'All Users are added to queue.'
+                    })
+                }
+            })
+        });
     
     } catch (error) {
         console.log(error);

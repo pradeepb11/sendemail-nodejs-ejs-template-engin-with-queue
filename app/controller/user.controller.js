@@ -74,9 +74,15 @@ exports.sendEmailToUsers = async (req, res) =>{
           // console.log(users)
         users.forEach((user, index) => {
             
-            emailQueue.add({
-                user
-            }).then(() =>{
+            emailQueue.add(
+                { 
+                    user
+                 },
+                {
+                    delay:4000,
+                    attempte:1
+                }
+                ).then(() =>{
                 if(index+ 1 === users.length ){
                     res.status(200).send({
                         message:'All Users are added to queue.'
